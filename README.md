@@ -1,3 +1,4 @@
+<pre>
 WHY Hibernate?
 It mediates the applications interaction with a relational database, leaving the developer free to concentrate on the 
 business problem at hand.
@@ -126,4 +127,7 @@ care of saving the object
 </hibernate-configuration>
 
 </hibernate-configuration>
+
+
+        </pre>
  
