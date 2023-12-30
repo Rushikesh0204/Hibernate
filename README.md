@@ -28,8 +28,63 @@ frmwork to manage persistence
  in the record set I have to create the object 
  ** so the problem here is this I have objects here in Java but I do not have objects here in the database level this is a 
  individual entity that needs to be converted to this individual entity which is the true and the very normally converted 
- this by <H4>using some boilerplate code which takes each of these properties takes each of the values of the member variables
- and maps it to sequel queries</H> now this mapping is what is a pain I need to convert each object into a sequel query and for
+ this by <H4> using some boilerplate code which takes each of these properties takes each of the values of the member variables
+ and maps it to sequel queries </H> now this mapping is what is a pain I need to convert each object into a sequel query and for
  saving and then for retrieving I'll have to convert a record set into an object and I need to do this for each and 
  every object say I have another class here there would be another table and I will have to do the conversion every time
+
+ The problem
+● Mapping member variables to columns
+● Mapping relationships
+● Handling data types
+● Managing changes to object state
+Formally referred as -- Object-Relational Impedance Mismatch' (sometimes called the 'paradigm mismatch)
+Important Mismatch Points
+1. Granularity
+2. Sub Types or inheritance n polymorphism 3. Identity
+4. Associations
+5. Data Navigation
+   
+Cost of Mismatch
+1.SQL queries in Java code
+2.Iterating through ResultSet & mapping it to POJOs or entities. 3.SQL Exception handling.
+4. Transaction management
+5. Caching
+6. Connection pooling
+7. Boiler plate code
+
+Configuration JDBC Driver
+JDBC drivers for that database so what's happening here is that while heaven it provides a layer of abstraction when it
+comes to the database connections hibernate internally is using JDBC to connect to the database and depending on what 
+database that we using ever we are configuring happening to connect to we will have to supply hibernate with that JDBC 
+driver so that it can use that driver to connect to the database
+
+<H3> Saving Without Hibernate </H3>
+● JDBC Database configuration 
+--> we need to tell JDBC which database we are actually interested in we need to give the you
+know the IP the port number and the user ID password so this kind of configuration has to be done for the JDBC to allow it
+to connect to the database
+● The Model object 
+--> model object which is the object that we want to save
+● Service method to create the model object
+--> some method which provides the values to the object and creates an object in 
+● Database design
+--> I do before I write code to save I will need to have a table in place in my database which which holds this user object 
+so depending on the fields that I want to save I will have to create the tables and have the corresponding columns so that 
+I can save the object data into that table
+● DAO method to save the object using SQL queries
+--> DAO layer we need to write code which is a method which takes this object and it generates the sequel queries it call 
+it uses the JDBC connection and it creates a connection it runs the query and it inserts the data to the database
+
+<H3> The Hibernate way </H3>
+● JDBC Database configuration - – Hibernate configuration
+-->
+● The Model object – Annotations
+-->
+● Service method to create the model object – Use the Hibernate API
+-->
+● Database design – Not needed!
+-->
+● DAO method to save the object using SQL queries - Not needed!
+-->
  
