@@ -78,13 +78,52 @@ it uses the JDBC connection and it creates a connection it runs the query and it
 
 <H3> The Hibernate way </H3>
 ● JDBC Database configuration - – Hibernate configuration
--->
+--> still need to tell that framework what the database is this is done in hibernate by using the hibernate configuration
+file it's an XML file that we will write and this will give information to hibernate as to what database it needs to connect
 ● The Model object – Annotations
--->
+--> module object because hibernate needs to know what object it needs to save and we will have a mortal object and we will 
+configure it in such a way that hibernate knows what needs to be saved and how
 ● Service method to create the model object – Use the Hibernate API
--->
+--> model object and normally what it would do is it would pass the model object to a data layer which uses C JDBC instead
+in the hibernate way of doing things the service method would pass the object to hibernate ap is the method would use
+hibernate API statically or pass it on to a data layer which uses hibernate ap is so it's actually the hibernate API 
+switch do the save of the model object database design 
 ● Database design – Not needed!
--->
+--> create a table for every object as long as you configure the model object the right way hibernate creates the tables itself
 ● DAO method to save the object using SQL queries - Not needed!
--->
+--> writing data layer code for converting objects into a relational model so this major step is actually not needed when
+they using hibernate as I mentioned here the service method directly calls the hibernate api's and the hibernate api's take
+care of saving the object 
+
+<H1> XML file </H1> 
+<hibernate-configuration>
+    <session-factory>
+        --> Database connection settings -->
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="connection.url">jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"></property>
+     
+        --> JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">1</property>
+        
+        --> SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        
+        --> Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        
+        --> Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        
+        --> Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">create</property>
+        
+        --> Names the annotated entity class -->
+        <mapping class="org.hibernate.tutorial.annotations.Event" />
+        
+    </session-factory>
+</hibernate-configuration>
+
+</hibernate-configuration>
  
