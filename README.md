@@ -108,7 +108,9 @@ care of saving the object
         --> JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
         
-        --> SQL dialect -->
+        --> SQL dialect --> dialect mean dialect is uh it's a configuration that you specify here so that uh hibernate 
+                            knows what kind of language it needs to use to talk to uh the database
+                                 class inside the hibernate pkg
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         
         --> Disable the second-level cache -->
@@ -117,10 +119,17 @@ care of saving the object
         --> Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         
-        --> Drop and re-create the database schema on startup -->
+        --> Drop and re-create the database schema on startup --> create -->every time create db
+                                                                  update --> if present not create db
         <property name="hbm2ddl.auto">create</property>
         
-        --> Names the annotated entity class -->
+        --> Names the annotated entity class -->mapping class here it says names the annotated entity class so what this 
+                                    is doing is uh here we need to list out all the model classes that we have configured
+                                    - using this hibernate create table
+                                                                         (give some Clues to hibernate as to how to
+                                                                          persist this class and the way we do that the
+                                                                          way we configure this is by using annotations
+                                                                          here we can also configure this using XML 
         <mapping class="org.hibernate.tutorial.annotations.Event" />
         
     </session-factory>
@@ -128,6 +137,65 @@ care of saving the object
 
 </hibernate-configuration>
 
+Some basics
+1. Hibernate uses runtime reflection to determine the persistent properties of a class.
 
+2. objects to be persisted(called as POJO or Entity) are defined in a mapping document or marked
+with annotations.
+Either these HBM XML docs or annotations serves to describe the persistent fields and associations,
+as well as any subclasses or proxies of the persistent object.
+
+3.  mapping documents or annotations are compiled at application startup time and provide the
+framework with necessary information for a persistent class.
+
+4. What is Hibernate config.?
+An instance of Hib Configuration allows the application to specify properties and mapping documents
+to be used at the frmwork start-up.
+The Configuration : initialization-time object.
+         
+5. SessionFactory is created from the compiled collection of mapping documents .
+   The SessionFactory provides the mechanism for managing persistent classes, the Session interface.
+         What is SessionFactory?
+-------------------------------
+It is a factory(provider) of session objects.
+we use sessionfactory object to create session object
+It is a heavy weight object, therefore it has to
+be created only once for an application(typically @ appln start up time) -- typically one per DB per
+web application.
+Its immutable --- Once SF is created , changes made to hibernate.cfg.xml will not be auto reflected in SF
+
+6. A web application or Java SE apllication will create a single Configuration, build a single instance of
+SessionFactory and then instantiate multiple Sessions in threads servicing client requests.
+         
+SessionFactory : immutable and does not reflect any changes done later to the Configuration.
+         
+7. The Session class provides the interface between the persistent data store and the application.
+      will create sessions from the session factory and then once you have a session you will use that session the save 
+      model objects in this case it is a save it could be any other database operation
+
+
+
+  1--> I create a new configuration object and I will call a method of this configuration
+  2--> object called configure now what this configure method does is it takes the it takes this configuration file and 
+         then it reads the configuration file to understand what is the database configuration that needs to be made 
+  3-->we can call the build session factory method now this build session factory method returns a session factory so this 
+         is what we need so I will create a new session factory object and I will assign this configuration configure dot 
+         build session Factory
+
+
+
+    **     SessionFactory sessionFactory = new Configuration ().configure() .buildSessionFactory()
+         I am taking the configuration then calling the configure method of the configuration so that you know it goes to
+         this XML file and then it reads the configuration and then I'm calling the build session factory so that it
+         varies a session factory object based on the configuration that we have provided now the build session factory 
+         returns factory object
+
+
+
+
+
+
+
+         
         </pre>
  
